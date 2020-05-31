@@ -12,7 +12,9 @@ import org.junit.Test;
 import org.openqa.selenium.By;
 import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.WebElement;
 import org.openqa.selenium.chrome.ChromeDriver;
+import org.openqa.selenium.support.ui.WebDriverWait;
 
 public class AuthorizationTestSuite {
 	private WebDriver driver;
@@ -24,7 +26,7 @@ public class AuthorizationTestSuite {
 		System.setProperty("webdriver.chrome.driver", "lib/chromedriver.exe");
 		driver = new ChromeDriver();
 		driver.get("http://localhost:8088/");
-		driver.manage().timeouts().implicitlyWait(30, TimeUnit.SECONDS);
+		driver.manage().timeouts().implicitlyWait(8, TimeUnit.SECONDS);
 
 	}
 
@@ -35,7 +37,16 @@ public class AuthorizationTestSuite {
 	
 	@Test
 	public void LoginInAndOut() throws Exception {
-		fail("Not implemented yet!");
+	    driver.get("http://localhost:8088/");
+	    driver.findElement(By.xpath("//input[@type='text']")).click();
+	    driver.findElement(By.xpath("//input[@type='text']")).clear();
+	    driver.findElement(By.xpath("//input[@type='text']")).sendKeys("user");
+	    driver.findElement(By.xpath("//input[@type='password']")).clear();
+	    driver.findElement(By.xpath("//input[@type='password']")).sendKeys("user");
+	    driver.findElement(By.xpath("//button[@type='submit']")).click();
+	    WebElement element = new WebDriverWait(driver, 10).until(driver -> driver.findElement(By.id("Wyloguj")));
+	    element.click();
+//	    driver.findElement(By.linkText("Wyloguj")).click();
 	}
 
 	@Test
